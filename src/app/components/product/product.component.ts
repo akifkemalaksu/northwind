@@ -1,3 +1,5 @@
+import { ProductService } from './../../services/product.service';
+import { Product } from './../../models/product';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,43 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  products: Product[] = [];
+  dataLoaded = false;
 
-  product: any = {
-    productId: 1,
-    productName: "Bardak",
-    categoryId: 1,
-    unitPrice: 5
-  };
-  product1: any = {
-    productId: 2,
-    productName: "Laptop",
-    categoryId: 1,
-    unitPrice: 5
-  };
-  product2: any = {
-    productId: 3,
-    productName: "Mouse",
-    categoryId: 1,
-    unitPrice: 5
-  };
-  product3: any = {
-    productId: 4,
-    productName: "Keyboard",
-    categoryId: 1,
-    unitPrice: 5
-  };
-  product4: any = {
-    productId: 5,
-    productName: "Camera",
-    categoryId: 1,
-    unitPrice: 5
-  };
-
-  products = [this.product, this.product1, this.product2, this.product3, this.product4];
-
-  constructor() { }
-
+  constructor(private productService: ProductService) {
+  }
   ngOnInit(): void {
+    this.getProducts();
   }
 
+  getProducts() {
+    this.productService.getProducts().subscribe(response => {
+      this.products = response.data;
+      this.dataLoaded = true;
+    });
+  }
 }
