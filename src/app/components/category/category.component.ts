@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
   categories: Category[] = [];
-  currentCategory: Category;
+  currentCategory?: Category;
 
   constructor(private categoryService: CategoryService) { }
 
@@ -23,14 +23,14 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  setCurrentCategory(category: Category) {
+  setCurrentCategory(category?: Category) {
     this.currentCategory = category;
   }
 
-  getCurrentCategoryClass(category: Category) {
+  getCurrentCategoryClass(category?: Category) {
     if (category == this.currentCategory) {
-      return "list-group-item active";
+      return "active";
     }
-    return "list-group-item";
+    return "";
   }
 }
