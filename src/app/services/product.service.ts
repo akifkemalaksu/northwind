@@ -1,4 +1,5 @@
-import { ListResponseModel } from './../models/listResponseModel';
+import { ResponseModel } from './../models/responseModels/responseModel';
+import { ListResponseModel } from './../models/responseModels/listResponseModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,8 +18,12 @@ export class ProductService {
     return this.httpClient.get<ListResponseModel<Product>>(newPath);
   }
 
-  getProductsByCategory(categoryId:number): Observable<ListResponseModel<Product>> {
+  getProductsByCategory(categoryId: number): Observable<ListResponseModel<Product>> {
     let newPath = `${this.apiUrl}products/getbycategory?categoryId=${categoryId}`;
     return this.httpClient.get<ListResponseModel<Product>>(newPath);
+  }
+
+  add(product: Product): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(`${this.apiUrl}products/add`, product);
   }
 }
